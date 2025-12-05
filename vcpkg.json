@@ -1,0 +1,15 @@
+{
+  "name": "learn-sfml",
+  "version": "1.0.0",
+  "description": "OpenGL project using GLFW, GLAD, and fmt libraries for modern C++ development",
+  "dependencies": [
+    {
+      "name": "fmt",
+      "$comment": "Modern C++ formatting library - provides fast, safe string formatting"
+    },
+    {
+      "name": "sfml",
+      "$comment": "Cross-platform library for OpenGL window creation and input handling"
+    }
+  ]
+}
