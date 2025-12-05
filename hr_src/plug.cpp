@@ -11,9 +11,7 @@ void plug_init(PlugState* state)
 }
 
 void plug_update(PlugState* state)
-{
-    printf("Plug update called - Drawing shapes\n");
-    
+{    
     if (!state->window || !state->window->isOpen())
         return;
     
@@ -22,7 +20,7 @@ void plug_update(PlugState* state)
 
     
     // Create and draw a circle
-    sf::CircleShape circle(100.f);
+    sf::CircleShape circle(50.f);
     circle.setFillColor(sf::Color::Green);
     circle.setPosition({200.f, 250.f});
     state->window->draw(circle);

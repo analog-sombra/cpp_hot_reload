@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <Windows.h>
 #include "normal.hpp"
+#include "watch.hpp"
 #include <SFML/Graphics.hpp>
+#include <filesystem>
 
 HMODULE load_plug(plug_init_t *plug_init, plug_update_t *plug_update);
 void reload_plug(HMODULE* libplug, plug_init_t *plug_init, plug_update_t *plug_update);
@@ -32,6 +34,20 @@ int main()
         return 1;
     }
 
+    // Start file watcher for hot reload
+    // Get the project root (2 levels up from build/Debug)
+    std::filesystem::path projectRoot = std::filesystem::current_path().parent_path().parent_path();
+    std::string hrSrcPath = (projectRoot / "hr_src").string();
+    std::string buildCommand = "cmd.exe /c cd " + projectRoot.string() + " && cmake --build build --config Debug --target plug 2>&1";
+    
+    FileWatcher watcher(hrSrcPath, buildCommand);
+    watcher.start();
+    
+    printf("\n=== Hot Reload System Active ===\n");
+    printf("Watching: %s\n", hrSrcPath.c_str());
+    printf("Edit files in hr_src/ or hr_include/ and save to auto-build\n");
+    printf("Press 'R' to reload the plugin after build\n\n");
+
     // Main loop
     while (state.window->isOpen())
     {
@@ -58,6 +74,8 @@ int main()
     }
 
     // Cleanup
+    watcher.stop();
+    
     if (state.window)
     {
         delete state.window;
