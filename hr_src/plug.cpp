@@ -26,7 +26,7 @@ void plug_update(PlugState* state)
     state->window->draw(circle);
     
     // Create and draw a square (rectangle with equal sides)
-    sf::RectangleShape square({100.f, 100.f});
+    sf::RectangleShape square({300.f, 200.f});
     square.setFillColor(sf::Color::Red);
     square.setPosition({500.f, 250.f});
     state->window->draw(square);
